@@ -1,15 +1,18 @@
 package com.example.lrc.module;
 
+import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.lrc.Application.Application;
 import com.example.lrc.annotation.ActivityFragmentInject;
@@ -37,6 +40,8 @@ public class PlayMusicActivity extends BaseActivity {
     ImageView playMusicPlay;
     @Bind(R.id.playMusic_next)
     ImageView playMusicNext;
+    @Bind(R.id.tv_musicInfo)
+    TextView tv_musicInfo;
 
     int currMusic = 0;
     int musicType = 1;
@@ -121,41 +126,61 @@ public class PlayMusicActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.playMusic_previous://上一首
                 toast("previous");
-
+                previous();
                 break;
             case R.id.playMusic_next://下一首
                 toast("next");
-
+                next();
                 break;
             case R.id.playMusic_play://播放或暂停
                 toast("play");
                 play();
                 break;
         }
+        showMusicInfo();
         super.onClick(v);
     }
 
     public void previous() {
+        currMusic--;
+        if (currMusic>=0){
+            mservice.play(musics.get(currMusic).getUrl());
 
+        }else{
+            toast("已切到第一首歌，上面没有歌曲了");
+            currMusic=0;
+        }
     }
 
     public void next() {
-
+        currMusic++;
+        if (currMusic<musics.size()){
+            mservice.play(musics.get(currMusic).getUrl());
+        }else{
+            toast("已切到最后一首歌曲，下面没有歌曲了");
+            currMusic=musics.size()-1;
+        }
     }
 
+    public void showMusicInfo(){
+        tv_musicInfo.setText(musics.get(currMusic).getTitle());
+    }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void play() {
         if (mservice.getPlayer().isPlaying()) {
             mservice.pause();
+            playMusicPlay.setImageDrawable(getDrawable(android.R.drawable.ic_media_pause));
         } else {
-
             mservice.play(musics.get(currMusic).getUrl());
+            playMusicPlay.setImageDrawable(getDrawable(android.R.drawable.ic_media_play));
         }
     }
 
     @Override
     protected void onDestroy() {
         unbindService(connectionService);
+        mservice.getPlayer().stop();
         super.onDestroy();
     }
 }
