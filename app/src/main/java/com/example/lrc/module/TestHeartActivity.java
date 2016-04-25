@@ -1,5 +1,6 @@
 package com.example.lrc.module;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
@@ -8,6 +9,9 @@ import com.example.lrc.annotation.ActivityFragmentInject;
 import com.example.lrc.base.BaseActivity;
 import com.example.lrc.common.ConstantSet;
 import com.example.lrc.view.HeartChartFragmen;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,13 +27,16 @@ public class TestHeartActivity extends BaseActivity {
     FragmentManager manager;
     FragmentTransaction transaction;
 
+    Timer timer;
+    TimerTask timerTask;
+
     @Override
     protected void initView() {
         ButterKnife.bind(this);
 
         initHeartLineFragment();
 
-
+        initTimer();
     }
 
     public void initHeartLineFragment(){
@@ -41,4 +48,21 @@ public class TestHeartActivity extends BaseActivity {
         transaction.commit();
     }
 
+    public void initTimer(){
+        timer=new Timer();
+        timerTask=new TimerTask() {
+            @Override
+            public void run() {
+                Intent i=new Intent();
+                i.setClass(TestHeartActivity.this,IntroductionActivity.class);
+                i.putExtra(ConstantSet.INTENT_HEART_TYPE,ConstantSet.HEARTTYPE_AFFABLE);
+                startActivity(i);
+
+                toast("心率紧张，请放舒缓歌曲");
+                finish();
+            }
+        };
+
+        timer.schedule(timerTask,10*1000);//10秒后提醒
+    }
 }
