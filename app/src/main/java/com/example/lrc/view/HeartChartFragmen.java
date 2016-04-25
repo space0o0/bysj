@@ -31,7 +31,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_heart_chart)
-public class HeartChartFragmen extends BaseFragment{
+public class HeartChartFragmen extends BaseFragment {
     private static boolean isPlayMusic = false;
     private static String LineName = "linename";
     private static int lineColor = 0;
@@ -63,11 +63,13 @@ public class HeartChartFragmen extends BaseFragment{
 
     Timer timer;
     TimerTask timerTask;
+
     private int NOTIFYDATA = 1;
 
     Runnable runnable;
     Thread thread;
     Object threadLock;
+    musicBroadCast musicBroadCastReceiver;
 
 
     public HeartChartFragmen() {
@@ -75,23 +77,22 @@ public class HeartChartFragmen extends BaseFragment{
     }
 
     /**
-     *
-     * @param nofityTime1 刷新时间
-     * @param lineColor1 线条颜色
+     * @param nofityTime1   刷新时间
+     * @param lineColor1    线条颜色
      * @param xValueNumber1 x轴个数
-     * @param lineName1 名字
-     * @param isPlayMusic1 是否需要监听歌曲播放，ture：播放歌曲开始监测心率；false：打开就开始监测
+     * @param lineName1     名字
+     * @param isPlayMusic1  是否需要监听歌曲播放，ture：播放歌曲开始监测心率；false：打开就开始监测
      * @return
      */
-    public static HeartChartFragmen newInstances(int nofityTime1, int lineColor1, int xValueNumber1, String lineName1,boolean isPlayMusic1,int heartType1) {
+    public static HeartChartFragmen newInstances(int nofityTime1, int lineColor1, int xValueNumber1, String lineName1, boolean isPlayMusic1, int heartType1) {
         HeartChartFragmen fragment = new HeartChartFragmen();
 
         time = nofityTime1;
         lineColor = lineColor1;
         xValueNumber = xValueNumber1;
         LineName = lineName1;
-        isPlayMusic=isPlayMusic1;
-        heartType=heartType1;
+        isPlayMusic = isPlayMusic1;
+        heartType = heartType1;
 
         return fragment;
     }
@@ -106,7 +107,9 @@ public class HeartChartFragmen extends BaseFragment{
         public void handleMessage(Message msg) {
             if (msg.what == NOTIFYDATA) {
 
-                setLine();
+                if (!isPause) {
+                    setLine();
+                }
             }
 
             super.handleMessage(msg);
@@ -123,7 +126,8 @@ public class HeartChartFragmen extends BaseFragment{
         xValues = new ArrayList<>();
         yValues = new ArrayList<>();
         line = new ArrayList<>();
-        threadLock=new Object();
+        threadLock = new Object();
+
         initChart();
         setLine();
         initRunnable();
@@ -164,7 +168,7 @@ public class HeartChartFragmen extends BaseFragment{
             //注册接收广播
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(ConstantSet.BROADCAST_MUSIC_ACTION);
-            getActivity().registerReceiver(new musicBroadCast() {
+            musicBroadCastReceiver = new musicBroadCast() {
                 @Override
                 public void startMusic() {
                     musicPlay();
@@ -175,8 +179,9 @@ public class HeartChartFragmen extends BaseFragment{
                 public void stopMusic() {
                     musicStop();
                 }
-            }, intentFilter);
-        }else{
+            };
+            getActivity().registerReceiver(musicBroadCastReceiver, intentFilter);
+        } else {
             musicPlay();
         }
     }
@@ -221,6 +226,8 @@ public class HeartChartFragmen extends BaseFragment{
     }
 
     public void setLine() {
+        if (!isAdded()) return;
+
         lineDataSet = new LineDataSet(yValues, LineName);
         lineDataSet.setDrawCubic(true);
         lineDataSet.setCubicIntensity(0.2f);
@@ -230,9 +237,9 @@ public class HeartChartFragmen extends BaseFragment{
         lineDataSet.setHighLightColor(Color.rgb(244, 117, 117));
 
         if (lineColor == 0) {
-            lineDataSet.setColor(getResources().getColor(R.color.black));
+            lineDataSet.setColor(getActivity().getResources().getColor(R.color.black));
         } else {
-            lineDataSet.setColor(getResources().getColor(lineColor));
+            lineDataSet.setColor(getActivity().getResources().getColor(lineColor));
         }
 
         lineDataSet.setFillColor(ColorTemplate.getHoloBlue());
@@ -280,19 +287,14 @@ public class HeartChartFragmen extends BaseFragment{
             curr = 0;
         }
         temp_xValue = getDate();
-//        Log.i("xvalue",temp_xValue);
 
         temp_entry = new Entry(getyValue(strings), yValues.size());
-//        Log.i("yvalue",temp_entry.getVal()+"");
 
         if (xValues.size() < xValueNumber) {
-            while(xValues.size()<xValueNumber){
+            while (xValues.size() < xValueNumber) {
                 xValues.add(temp_xValue);
                 yValues.add(temp_entry);
             }
-//            xValues.add(temp_xValue);
-//            yValues.add(temp_entry);
-
         } else {
             xValues.remove(0);
             xValues.add(xValues.size(), temp_xValue);
@@ -344,8 +346,8 @@ public class HeartChartFragmen extends BaseFragment{
                 while (true) {
 
                     setData();
-                    if(isPause){
-                        synchronized (threadLock){
+                    if (isPause) {
+                        synchronized (threadLock) {
                             try {
                                 threadLock.wait();
                             } catch (InterruptedException e) {
@@ -358,9 +360,7 @@ public class HeartChartFragmen extends BaseFragment{
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
                 }
-
             }
         };
     }
@@ -369,13 +369,13 @@ public class HeartChartFragmen extends BaseFragment{
     boolean isStart = false;
 
     public void startDrawChart() {
-        if (!isStart){
-            isStart=true;
+        if (!isStart) {
+            isStart = true;
             thread.start();
         }
 
-        isPause=false;
-        synchronized (threadLock){
+        isPause = false;
+        synchronized (threadLock) {
             threadLock.notify();
         }
     }
@@ -388,8 +388,9 @@ public class HeartChartFragmen extends BaseFragment{
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
-
+        stopDrawChart();
+        if (musicBroadCastReceiver != null) {
+            getActivity().unregisterReceiver(musicBroadCastReceiver);
+        }
     }
-
-
 }

@@ -33,7 +33,7 @@ public class TestHeartActivity extends BaseActivity {
     }
 
     public void initHeartLineFragment(){
-        heartChartFragmen=HeartChartFragmen.newInstances(500,R.color.blue,30,"心率",false, ConstantSet.HEARTTYPE_MOVEMENT);
+        heartChartFragmen=HeartChartFragmen.newInstances(1000,R.color.blue,30,"心率",false, ConstantSet.HEARTTYPE_MOVEMENT);
 
         manager=getSupportFragmentManager();
         transaction=manager.beginTransaction();
