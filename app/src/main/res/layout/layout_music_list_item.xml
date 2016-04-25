@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:showDividers="beginning"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/musicNo"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="1"
+        android:gravity="center"
+        android:textSize="16sp"
+
+        />
+
+    <RelativeLayout
+        android:id="@+id/musicLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|start"
+        android:padding="10dp"
+        android:background="?android:attr/selectableItemBackground"
+        >
+
+        <TextView
+            android:id="@+id/musicName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="重来"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:id="@+id/musicAlbum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="aaaabbbbaaaabbbb"
+            android:layout_below="@+id/musicName"/>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:visibility="gone"
+        android:id="@+id/setting"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/iconfont_close"
+        />
+
+
+</LinearLayout>

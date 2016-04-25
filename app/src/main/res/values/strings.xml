@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">bysj</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="homeActivity_title">心率监测系统</string>
+    <string name="title_activity_select">选择音乐类型</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_test_heart">TestHeartActivity</string>
+    <string name="title_activity_introduction">IntroductionActivity</string>
+
+    <string name="introduction_affable">
+        舒缓音乐集包含“自然之音”和“美妙旋律”给您带来怡然自得的小憩时光。聆听海浪拍岸，落叶徐徐，步入幽静的花园，冥想的国度。最理想的解压方式莫过于在美妙旋律的抚慰下享受睡意渐浓，伴随着自然之音，在天空描绘绮丽梦境。
+        舒缓音乐集免费版包含四首高质量自然之音：
+        溪边漫步-流水叮咚，虫鸣鸟叫，感受身心逐渐放松。
+        阳光海滩-清风拂面，阳光普照，闭上双眼，聆听海浪吟唱着永续平和。
+        园中小憩-绿草茵茵，花团锦簇，小睡片刻，拥抱美好梦境。
+        瀑布-瀑布，鸟鸣，微风之声带您进入深度冥想状态。</string>
+
+    <string name="introduction_movement">紧张类型的音乐可以让人兴奋，浑身热血沸腾，充满激情，很适合在做运动的时候听，激发运动潜力，或者在人萎靡不振的时候听，重拾斗志，换回对生活的热爱，对工作的拼搏之情。</string>
+    <string name="title_activity_play_music">PlayMusicActivity</string>
+
+
+</resources>

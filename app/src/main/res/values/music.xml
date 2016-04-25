@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="music_affable">
+        <item>天空之城</item>
+        <item>夜的钢琴曲五</item>
+        <item>風見鶏</item>
+    </string-array>
+
+    <string-array name="music_movement">
+        <item>TheFatRat - Unity</item>
+        <item>Bonnie McKee - American Girl</item>
+        <item>Carly Rae Jepsen - More Than A Memory</item>
+    </string-array>
+</resources>

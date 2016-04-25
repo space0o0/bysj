@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.lrc.module.SelectActivity"
+    android:orientation="vertical"
+    tools:showIn="@layout/activity_select">
+    
+    
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_affable"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:text="舒缓型"
+        android:textSize="20sp"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_movement"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:text="运动型"
+        android:textSize="20sp"/>
+
+</LinearLayout>
