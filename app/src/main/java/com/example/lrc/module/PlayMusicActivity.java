@@ -170,10 +170,10 @@ public class PlayMusicActivity extends BaseActivity {
     public void play() {
         if (mservice.getPlayer().isPlaying()) {
             mservice.pause();
-            playMusicPlay.setImageDrawable(getDrawable(android.R.drawable.ic_media_pause));
+            playMusicPlay.setImageDrawable(getDrawable(android.R.drawable.ic_media_play));
         } else {
             mservice.play(musics.get(currMusic).getUrl());
-            playMusicPlay.setImageDrawable(getDrawable(android.R.drawable.ic_media_play));
+            playMusicPlay.setImageDrawable(getDrawable(android.R.drawable.ic_media_pause));
         }
     }
 
