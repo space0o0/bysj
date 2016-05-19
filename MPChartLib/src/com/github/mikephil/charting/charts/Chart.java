@@ -120,7 +120,7 @@ public abstract class Chart<T extends ChartData<? extends DataSet<? extends Entr
 	protected OnChartValueSelectedListener mSelectionListener;
 
 	/** text that is displayed when the chart is empty */
-	private String mNoDataText = "No chart data available.";
+	private String mNoDataText = "点击播放歌曲";
 
 	/**
 	 * Gesture listener for custom callbacks when making gestures on the chart.
@@ -206,7 +206,7 @@ public abstract class Chart<T extends ChartData<? extends DataSet<? extends Entr
 		mDescPaint.setTextSize(Utils.convertDpToPixel(9f));
 
 		mInfoPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-		mInfoPaint.setColor(Color.rgb(247, 189, 51)); // orange
+		mInfoPaint.setColor(Color.rgb(48, 64, 166)); //修改字体颜色
 		mInfoPaint.setTextAlign(Align.CENTER);
 		mInfoPaint.setTextSize(Utils.convertDpToPixel(12f));
 

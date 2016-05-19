@@ -78,6 +78,8 @@ public class PlayMusicActivity extends BaseActivity {
         playMusicNext.setOnClickListener(this);
         playMusicPlay.setOnClickListener(this);
 
+        setToolbarTitle("心率图");
+
     }
 
     public class ConnectionService implements ServiceConnection {
