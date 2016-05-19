@@ -18,13 +18,13 @@
         android:id="@+id/bt_select"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:text="自主选择"
+        android:text="音乐分类检索"
         android:textSize="20sp"/>
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/bt_test"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:text="用户测试"
+        android:text="自动音乐推荐"
         android:textSize="20sp"/>
 </LinearLayout>

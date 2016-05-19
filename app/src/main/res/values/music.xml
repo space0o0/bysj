@@ -2,14 +2,24 @@
 <resources>
 
     <string-array name="music_affable">
-        <item>天空之城</item>
-        <item>夜的钢琴曲五</item>
-        <item>風見鶏</item>
+        <item>风起时</item>
+        <item>之子于归</item>
+        <item>时间都去哪了</item>
+        <item>天空之城钢琴</item>
+        <item>摇篮曲</item>
+        <item>南部小镇</item>
+        <item>风之华</item>
+        <item>水</item>
     </string-array>
 
     <string-array name="music_movement">
-        <item>TheFatRat - Unity</item>
-        <item>Bonnie McKee - American Girl</item>
-        <item>Carly Rae Jepsen - More Than A Memory</item>
+        <item>管他什么音乐</item>
+        <item>双节棍</item>
+        <item>快乐崇拜</item>
+        <item>Us</item>
+        <item>Sky High</item>
+        <item>Tik Tok</item>
+        <item>Too Close</item>
+        <item>Amazing</item>
     </string-array>
 </resources>

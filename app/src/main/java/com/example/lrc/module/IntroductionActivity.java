@@ -52,10 +52,12 @@ public class IntroductionActivity extends BaseActivity {
         if (heartType == ConstantSet.HEARTTYPE_AFFABLE) {
             introduction.setText(R.string.introduction_affable);
             musics = Application.getInstance().getMusics_affable();
+            setToolbarTitle("舒缓型音乐歌单");
 
         } else if (heartType == ConstantSet.HEARTTYPE_MOVEMENT) {
             introduction.setText(R.string.introduction_movement);
             musics = Application.getInstance().getMusics_movement();
+            setToolbarTitle("运动型音乐歌单");
 
         } else {
             musics = Application.getInstance().getList_music();

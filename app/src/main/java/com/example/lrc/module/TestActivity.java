@@ -23,6 +23,8 @@ public class TestActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         btStartTest.setOnClickListener(this);
+
+        setToolbarTitle("测试");
     }
 
     @Override

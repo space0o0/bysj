@@ -37,6 +37,8 @@ public class TestHeartActivity extends BaseActivity {
         initHeartLineFragment();
 
         initTimer();
+
+        setToolbarTitle("测试心率中...");
     }
 
     public void initHeartLineFragment(){
