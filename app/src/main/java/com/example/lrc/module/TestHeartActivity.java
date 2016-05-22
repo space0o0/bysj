@@ -27,6 +27,8 @@ public class TestHeartActivity extends BaseActivity {
     FragmentManager manager;
     FragmentTransaction transaction;
 
+    private final int TEST_DELAY = 30;//测试时间，过该时间后跳转
+
     Timer timer;
     TimerTask timerTask;
 
@@ -41,23 +43,23 @@ public class TestHeartActivity extends BaseActivity {
         setToolbarTitle("测试心率中...");
     }
 
-    public void initHeartLineFragment(){
-        heartChartFragmen=HeartChartFragmen.newInstances(1000,R.color.blue,30,"心率",false, ConstantSet.HEARTTYPE_MOVEMENT);
+    public void initHeartLineFragment() {
+        heartChartFragmen = HeartChartFragmen.newInstances(1000, R.color.blue, 30, "心率", false, ConstantSet.HEARTTYPE_MOVEMENT);
 
-        manager=getSupportFragmentManager();
-        transaction=manager.beginTransaction();
-        transaction.replace(R.id.framelayout_chart,heartChartFragmen);
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
+        transaction.replace(R.id.framelayout_chart, heartChartFragmen);
         transaction.commit();
     }
 
-    public void initTimer(){
-        timer=new Timer();
-        timerTask=new TimerTask() {
+    public void initTimer() {
+        timer = new Timer();
+        timerTask = new TimerTask() {
             @Override
             public void run() {
-                Intent i=new Intent();
-                i.setClass(TestHeartActivity.this,IntroductionActivity.class);
-                i.putExtra(ConstantSet.INTENT_HEART_TYPE,ConstantSet.HEARTTYPE_AFFABLE);
+                Intent i = new Intent();
+                i.setClass(TestHeartActivity.this, IntroductionActivity.class);
+                i.putExtra(ConstantSet.INTENT_HEART_TYPE, ConstantSet.HEARTTYPE_AFFABLE);
                 startActivity(i);
 
                 toast("心率紧张，请放舒缓歌曲");
@@ -65,6 +67,6 @@ public class TestHeartActivity extends BaseActivity {
             }
         };
 
-        timer.schedule(timerTask,10*1000);//10秒后提醒
+        timer.schedule(timerTask, TEST_DELAY * 1000);//30秒后提醒
     }
 }
